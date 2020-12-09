@@ -38,6 +38,37 @@ print_words() and print_top().
 """
 
 import sys
+   
+    
+def make_dict (filename):
+    text = open (filename, 'rU')
+    words = text.read().split()
+    words_lower = [string.lower() for string in words]
+    word_dict = {}
+    for word in words_lower:
+        if word not in word_dict:
+            word_dict[word] = 1
+        else:
+            word_dict[word] +=1
+    text.close()
+    return word_dict
+    
+def print_words(filename):
+    my_dict = make_dict (filename)
+    sorted_dict = sorted(my_dict.items())
+    for k, v in sorted_dict: print k, v
+    return 
+
+def print_top(filename):
+    my_dict = make_dict (filename)
+    sort_dict = sorted (my_dict.items(), key = lambda x: x[1], reverse = True)
+    for items in sort_dict[0:19]:
+        print items[0] + ' ' + str(items [1])
+    return
+    
+
+
+
 
 # +++your code here+++
 # Define print_words(filename) and print_top(filename) functions.
