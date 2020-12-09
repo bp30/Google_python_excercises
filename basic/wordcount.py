@@ -38,8 +38,7 @@ print_words() and print_top().
 """
 
 import sys
-   
-    
+      
 def make_dict (filename):
     text = open (filename, 'rU')
     words = text.read().split()
@@ -62,19 +61,15 @@ def print_words(filename):
 def print_top(filename):
     my_dict = make_dict (filename)
     sort_dict = sorted (my_dict.items(), key = lambda x: x[1], reverse = True)
-    for items in sort_dict[0:19]:
-        print items[0] + ' ' + str(items [1])
+    for items in sort_dict[:20]:
+        print items[0], items [1]
     return
-    
-
-
-
-
-# +++your code here+++
 # Define print_words(filename) and print_top(filename) functions.
 # You could write a helper utility function that reads a file
 # and builds and returns a word/count dict for it.
 # Then print_words() and print_top() can just call the utility function.
+
+
 
 ###
 
