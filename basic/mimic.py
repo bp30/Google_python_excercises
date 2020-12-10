@@ -16,7 +16,7 @@ it into one giant string and split it once.
 
 Build a "mimic" dict that maps each word that appears in the file
 to a list of all the words that immediately follow that word in the file.
-The list of words can be be in any order and should include
+The list of words can be in any order and should include
 duplicates. So for example the key "and" might have the list
 ["then", "best", "then", "after", ...] listing
 all the words which came after "and" in the text.
@@ -26,7 +26,7 @@ the first word in the file.
 With the mimic dict, it's fairly easy to emit random
 text that mimics the original. Print a word, then look
 up what words might come next and pick one at random as
-the next work.
+the next word.
 Use the empty string as the first word to prime things.
 If we ever get stuck with a word that is not in the dict,
 go back to the empty string to keep things moving.
@@ -46,17 +46,30 @@ import sys
 
 
 def mimic_dict(filename):
+  file = open (filename, 'rU')
+  text = file.read().split()
   """Returns mimic dict mapping each word to list of words which follow it."""
-  # +++your code here+++
-  return
+  word_dict = {}
+  word_dict[''] = [text[0]]
+  for n in range (len(text)-1):
+    if text[n] not in word_dict.keys():
+        word_dict[text[n]] = [text[n+1]]
+    else:
+        word_dict[text[n]].append(text[n+1])
+  file.close()
+  return word_dict
 
 
 def print_mimic(mimic_dict, word):
-  """Given mimic dict and start word, prints 200 random words."""
-  # +++your code here+++
-  return
-
-
+    """Given mimic dict and start word, prints 200 random words."""
+    for n in range (200):
+        print word,
+        next_word = mimic_dict.get(word)
+        if not next_word:
+            next_word = mimic_dict['']  
+        word = random.choice(next_word)    
+  
+  
 # Provided main(), calls mimic_dict() and mimic()
 def main():
   if len(sys.argv) != 2:
